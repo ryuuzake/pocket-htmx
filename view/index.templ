@@ -1,16 +1,23 @@
 package view
 
 import "github.com/ryuuzake/pocket-htmx/view/layout"
+import "github.com/ryuuzake/pocket-htmx/view/components"
 
 templ Index(isLoggedIn bool) {
 	@layout.Base() {
 		<h1>Hello From the Index </h1>
 		<div class="flex flex-col">
 			if (!isLoggedIn) {
-				<a href="/login">Login</a>
+				<div hx-boost="true">
+					<a href="/login" class={ components.ButtonVariants(components.ButtonVariant{Variant: "link"}) }>
+						Login
+					</a>
+				</div>
 			} else {
-				<form action="/logout" method="post">
-					<button>Logout</button>
+				<form hx-boost="true" action="/logout" method="post">
+					<button class={ components.ButtonVariants(components.ButtonVariant{}) }>
+						Logout
+					</button>
 				</form>
 				<div hx-get="/todos" hx-trigger="load"></div>
 			}

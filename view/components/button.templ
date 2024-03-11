@@ -1,0 +1,64 @@
+package components
+
+import "strings"
+
+const (
+	defaultClassName = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+)
+
+func buttonVariantClass(variant string) string {
+	switch variant {
+	case "destructive":
+		return "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90"
+	case "outline":
+		return "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
+	case "secondary":
+		return "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80"
+	case "ghost":
+		return "hover:bg-accent hover:text-accent-foreground"
+	case "link":
+		return "text-primary underline-offset-4 hover:underline"
+	default:
+		return "bg-primary text-primary-foreground shadow hover:bg-primary/90"
+	}
+}
+
+func buttonSizeClass(size string) string {
+	switch size {
+	case "sm":
+		return "h-8 rounded-md px-3 text-xs"
+	case "lg":
+		return "h-10 rounded-md px-8"
+	case "icon":
+		return "h-9 w-9"
+	default:
+		return "h-9 px-4 py-2"
+	}
+}
+
+type ButtonVariant struct {
+	Variant   string
+	Size      string
+	ClassName string
+}
+
+func ButtonVariants(variant ButtonVariant) string {
+	str := []string{
+		defaultClassName,
+		buttonVariantClass(variant.Variant),
+		buttonSizeClass(variant.Size),
+		variant.ClassName,
+	}
+
+	return strings.Join(str, " ")
+}
+
+templ Button(name string, variant ButtonVariant, attrs templ.Attributes) {
+	<button
+		type="button"
+		class={ ButtonVariants(variant) }
+		{ attrs... }
+	>
+		{ name }
+	</button>
+}

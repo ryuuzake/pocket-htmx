@@ -1,27 +1,20 @@
 package layout
 
-script pb(val any) {
-	if (!val) return
-	window.addEventListener("load", function() {
-		pb.authStore.loadFromCookie("pb_auth={\"token\":\"" + val + "\"}")
-	})
-}
-
 templ Base() {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
-			<title>go-pocketbase-htmx-templ-tailwind</title>
+			<title>pocket-htmx</title>
 			<meta charset="UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1"/>
-			<meta name="description" content="golang pocketbase htmx templ tailwind auth template"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<link href="css/tailwind.css" rel="stylesheet"/>
-			<script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
-			<script type="module" src="scripts/pb.js"></script>
-			@pb(ctx.Value("pb_auth"))
+			<script src="scripts/htmx.min.js" defer></script>
 		</head>
-		<body class="bg-purple-200">
-			{ children... }
+		<body class="flex items-start justify-center h-full bg-gray-50">
+			<div class="flex items-center justify-center w-full max-w-full">
+				{ children... }
+			</div>
 		</body>
 	</html>
 }
