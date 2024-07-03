@@ -8,14 +8,20 @@ import (
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/ryuuzake/pocket-htmx/controller"
+
 	"github.com/ryuuzake/pocket-htmx/middleware"
 	"github.com/ryuuzake/pocket-htmx/utils"
 	"github.com/ryuuzake/pocket-htmx/view"
+
+	_ "github.com/ryuuzake/pocket-htmx/migrations"
 )
 
 func main() {
 	app := pocketbase.New()
+
+	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{})
 
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		e.Router.Use(middleware.LoadAuthContextFromCookie(app))

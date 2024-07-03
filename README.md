@@ -35,3 +35,4 @@ save these urls:
 
 - https://git.sunshine.industries/efim/go-ssr-pocketbase-oauth-attempt
 - https://www.reddit.com/r/pocketbase/comments/18lhedp/jwt_auth_with_htmx/
+- https://pocketbase.io/docs/go-migrations
